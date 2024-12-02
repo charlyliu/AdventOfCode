@@ -7,19 +7,23 @@ function SafeReports(input)
 		local listLine = Split(line, " ")
 		if IsSafe(listLine) then
 			safeReports = safeReports + 1
-		else
-			for i = 1, #listLine, 1 do
-				local partialList = table.table_copy(listLine)
-				table.remove(partialList, i)
-				if IsSafe(partialList) == true then
-					safeReports = safeReports + 1
-					break
-				end
-			end
+		elseif IsAnyPartialSafe(listLine) then
+			safeReports = safeReports + 1
 		end
 	end
 
 	return safeReports
+end
+
+function IsAnyPartialSafe(listLine)
+	for i = 1, #listLine, 1 do
+		local partialList = table.table_copy(listLine)
+		table.remove(partialList, i)
+		if IsSafe(partialList) == true then
+			return true
+		end
+	end
+	return false
 end
 
 function IsSafe(list)
