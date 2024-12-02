@@ -4,7 +4,8 @@ function SafeReports(input)
 	local safeReports = 0
 
 	for line in io.lines(input) do
-		if IsSafe(line) then
+		local list = Split(line, " ")
+		if IsSafe(list) then
 			safeReports = safeReports + 1
 		end
 	end
@@ -12,18 +13,17 @@ function SafeReports(input)
 	return safeReports
 end
 
-function IsSafe(line)
+function IsSafe(list)
 	local lastNumber = tonumber(0)
 	local firstNumber = true
 	local isIncreasing = nil
-	for field, s in MatchListBySeparator(line, " ") do
+	for _, field in ipairs(list) do
 		local number = tonumber(field)
 		if firstNumber then
 			lastNumber = number
 			firstNumber = false
 		else
 			if IsMoreThan(3, lastNumber, number) then
-				print("is More than 3 ", lastNumber, " ", number)
 				return false
 			end
 
@@ -35,23 +35,18 @@ function IsSafe(line)
 				isIncreasing = lastNumber < number
 			elseif isIncreasing == true then
 				if lastNumber >= number then
-					print("Changed direction > ", lastNumber, " ", number)
 					return false
 				end
 			else
 				if lastNumber <= number then
-					print("Changed direction < ", lastNumber, " ", number)
 					return false
 				end
 			end
 
 			lastNumber = number
 		end
-
-		if s == "" then
-			return true
-		end
 	end
+	return true
 end
 
 function IsMoreThan(number, left, right)
