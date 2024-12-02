@@ -4,9 +4,18 @@ function SafeReports(input)
 	local safeReports = 0
 
 	for line in io.lines(input) do
-		local list = Split(line, " ")
-		if IsSafe(list) then
+		local listLine = Split(line, " ")
+		if IsSafe(listLine) then
 			safeReports = safeReports + 1
+		else
+			for i = 1, #listLine, 1 do
+				local partialList = table.table_copy(listLine)
+				table.remove(partialList, i)
+				if IsSafe(partialList) == true then
+					safeReports = safeReports + 1
+					break
+				end
+			end
 		end
 	end
 

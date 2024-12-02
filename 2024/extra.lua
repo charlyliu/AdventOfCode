@@ -12,3 +12,11 @@ end
 function MatchListBySeparator(inputstr, sep)
 	return string.gmatch(inputstr, "([^" .. sep .. "]*)(" .. sep .. "?)")
 end
+
+function table.table_copy(t)
+	local t2 = {}
+	for k, v in pairs(t) do
+		t2[k] = v
+	end
+	return t2
+end
