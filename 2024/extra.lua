@@ -20,3 +20,7 @@ function table.table_copy(t)
 	end
 	return t2
 end
+
+function string.charAt(inputstr, position)
+	return string.char(string.byte(inputstr, position))
+end
