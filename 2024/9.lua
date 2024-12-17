@@ -27,7 +27,8 @@ local function TransformIndividualBlocks(line)
 	return result
 end
 
-local function ReOrder(individualBlocks)
+-- Part 1
+local function ReOrderPart1(individualBlocks)
 	-- local leftIndex = 1
 	local rightIndex = #individualBlocks
 	-- local result = {}
@@ -64,13 +65,15 @@ local function ReOrder(individualBlocks)
 	return checkSum
 end
 
+local function ReOrderPart2(individualBlocks) end
+
 function Decode()
 	for line in io.lines("input_9.txt") do
 		-- print(line)
 		local individualBlocks = TransformIndividualBlocks(line)
 		-- print(individualBlocks)
-		local orderedBlocks = ReOrder(individualBlocks)
-		print(orderedBlocks)
+		local checkSum = ReOrderPart1(individualBlocks)
+		print(checkSum)
 	end
 end
 
