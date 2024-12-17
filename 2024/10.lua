@@ -19,7 +19,12 @@ end
 local function findTrails(topographicMap, i, j, resultSet)
 	if topographicMap[i][j] == "9" then
 		local key = tostring(i) .. ":" .. tostring(j)
-		resultSet[key] = true
+		if resultSet[key] == nil then
+			resultSet[key] = 1
+		else
+			resultSet[key] = resultSet[key] + 1
+		end
+
 		return
 	end
 
@@ -47,7 +52,15 @@ end
 local function findScoreTrails(topographicMap, i, j)
 	local allTrails = {}
 	findTrails(topographicMap, i, j, allTrails)
-	return table.length(allTrails)
+	local allRatings = 0
+	for _, value in pairs(allTrails) do
+		allRatings = allRatings + value
+	end
+	-- Part 1
+	-- return #allTrails
+
+	-- Part 2
+	return allRatings
 end
 
 local function SumTrailhead(topographicMap)
